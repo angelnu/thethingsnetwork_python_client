@@ -4,7 +4,6 @@ from collections.abc import Awaitable, Callable
 from datetime import datetime
 import json
 import logging
-from typing import ParamSpec
 
 import aiohttp
 from aiohttp.hdrs import ACCEPT, AUTHORIZATION
@@ -33,7 +32,7 @@ class TTNBaseValue:
         return self.__uplink
 
     @property
-    def field_id(self) -> dict:
+    def field_id(self) -> str:
         """field_id representing this value-"""
         return self.__field_id
 
@@ -102,16 +101,15 @@ class TTNDeviceTrackerValue(TTNBaseValue):
 class TTNClient:  # pylint: disable=too-few-public-methods
     """Client to connect to the Things Network."""
 
+    DATA_TYPE = dict[str, dict[str, TTNBaseValue]]
+
     def __init__(  # pylint: disable=too-many-arguments
         self,
         hostname: str,
         application_id: str,
         access_key: str,
         first_fetch_h: int = 24,
-        push_callback: (
-            Callable[ParamSpec(dict[str, dict[str:TTNBaseValue]]), Awaitable[None]]
-            | None
-        ) = None,
+        push_callback: Callable[[DATA_TYPE], Awaitable[None]] | None = None,
     ) -> None:
         self.__hostname = hostname
         self.__application_id = application_id
@@ -119,9 +117,9 @@ class TTNClient:  # pylint: disable=too-few-public-methods
         self.__first_fetch_h = first_fetch_h
         self.__push_callback = push_callback  # TBD: add support for MQTT to get faster updates # pylint: disable=W0238
 
-        self.__last_measurement_datetime = None
+        self.__last_measurement_datetime: datetime | None = None
 
-    async def fetch_data(self) -> dict[str, dict[str:TTNBaseValue]]:
+    async def fetch_data(self) -> DATA_TYPE:
         """Fetch data stored by the TTN Storage since the last time we fetched/received data."""
 
         if not self.__last_measurement_datetime:
@@ -140,7 +138,7 @@ class TTNClient:  # pylint: disable=too-few-public-methods
         # at https://www.thethingsindustries.com/docs/reference/api/storage_integration/
         return await self.__storage_api_call(f"?last={fetch_last}&order=received_at")
 
-    async def __storage_api_call(self, options) -> dict[str, dict[str:TTNBaseValue]]:
+    async def __storage_api_call(self, options) -> DATA_TYPE:
         url = TTN_DATA_STORAGE_URL.format(
             app_id=self.__application_id, hostname=self.__hostname, options=options
         )
@@ -165,7 +163,7 @@ class TTNClient:  # pylint: disable=too-few-public-methods
                     f"expected 200 got {response.status} - {response.reason}",
                 )
 
-            ttn_values = dict[str, dict[str:TTNBaseValue]]()
+            ttn_values: TTNClient.DATA_TYPE = {}
             async for application_up_raw in response.content:
                 # Skip empty lines not containing a result
                 if len(application_up_raw) < len("result"):
@@ -204,12 +202,13 @@ class TTNClient:  # pylint: disable=too-few-public-methods
 
     @staticmethod
     def __add_value(
-        ttn_values: dict[str, dict[str:TTNBaseValue]],
+        ttn_values: DATA_TYPE,
         device_id: str,
         field_id: str,
         application_up: dict,
         new_value,
     ) -> None:
+        new_ttn_value: TTNBaseValue | None
         if isinstance(new_value, dict):
             if "gps" in field_id:
                 # GPS
@@ -227,7 +226,7 @@ class TTNClient:  # pylint: disable=too-few-public-methods
                         value_item,
                     )
                 return
-        elif isinstance(new_value, dict):
+        elif isinstance(new_value, bool):
             # BinarySensor
             new_ttn_value = TTNBinarySensorValue(application_up, field_id, new_value)
         elif isinstance(new_value, list):
