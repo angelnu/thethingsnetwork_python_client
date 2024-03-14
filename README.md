@@ -4,7 +4,7 @@
 
 A python client to fetch/receive and parse uplink messages from The Things Network
 
-This is a WIP package as it was before part of a custom [Home Assistant integration]()
+This is a WIP package as it was before part of a custom [Home Assistant integration](https://github.com/angelnu/home_assistant_thethingsnetwork)
 
 ## Thanks
 
