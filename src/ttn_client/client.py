@@ -234,6 +234,9 @@ class TTNClient:  # pylint: disable=too-few-public-methods
             new_ttn_value = TTNSensorValue(application_up, field_id, str(new_value))
         elif isinstance(new_value, (str, int, float)):
             new_ttn_value = TTNSensorValue(application_up, field_id, new_value)
+        elif new_value is None:
+            # Skip null values
+            return
         else:
             raise TypeError(f"Unexpected type {type(new_value)} for value: {new_value}")
 
