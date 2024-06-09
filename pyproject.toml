@@ -1,6 +1,6 @@
 [project]
 name = "ttn_client"
-version = "0.0.4"
+version = "1.0.0"
 authors = [
   { name="Angel Nunez Mencias", email="pypi@angelnu.com" },
 ]

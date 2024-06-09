@@ -236,6 +236,10 @@ class TTNClient:  # pylint: disable=too-few-public-methods
             new_ttn_value = TTNSensorValue(application_up, field_id, new_value)
         elif new_value is None:
             # Skip null values
+            _LOGGER.warning(
+                "Ignoring entry %s with value=None - check your application decoder",
+                field_id,
+            )
             return
         else:
             raise TypeError(f"Unexpected type {type(new_value)} for value: {new_value}")
