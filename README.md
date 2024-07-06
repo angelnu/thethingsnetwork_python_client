@@ -35,7 +35,8 @@ If you have a device using a different format, please open an [Issue](issues) an
 
 ## Supported devices
 
-- [default](tests/parsers/test_data/default_valid.json)
+- [Default](tests/parsers/test_data/default_valid.json)
+- [Sensecap](tests/parsers/test_data/sensecap_valid.json)
 
 ## Thanks
 

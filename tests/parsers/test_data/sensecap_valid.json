@@ -1,0 +1,162 @@
+{
+    "name": "as.up.data.forward",
+    "time": "2024-07-05T16:16:30.901957966Z",
+    "identifiers": [
+      {
+        "device_ids": {
+          "device_id": "eui-2cf7f1c044300279",
+          "application_ids": {
+            "application_id": "elji-lorawan-1"
+          },
+          "dev_eui": "2xxxxxx044300279",
+          "join_eui": "8xxxxxx000000009",
+          "dev_addr": "260BA448"
+        }
+      }
+    ],
+    "data": {
+      "***@***.***": "type.googleapis.com/ttn.lorawan.v3.ApplicationUp",
+      "end_device_ids": {
+        "device_id": "eui-2cf7f1c044300279",
+        "application_ids": {
+          "application_id": "elji-lorawan-1"
+        },
+        "dev_eui": "2xxxxxx044300279",
+        "join_eui": "8xxxxxx000000009",
+        "dev_addr": "260BA448"
+      },
+      "correlation_ids": [
+        "gs:uplink:01J21TXMF4DAS631TSWK0WZF8V"
+      ],
+      "received_at": "2024-07-05T16:16:30.899243333Z",
+      "uplink_message": {
+        "session_key_id": "AZB4Ym7KD33ulfRwvqmLdg==",
+        "f_port": 3,
+        "f_cnt": 642,
+        "frm_payload": "AQCFTQAAD0cAABUCAH8AAAAAJu4DZA==",
+        "decoded_payload": {
+          "err": 0,
+          "messages": [
+            {
+              "measurementId": "4097",
+              "measurementValue": 13.3,
+              "type": "Air Temperature"
+            },
+            {
+              "measurementId": "4098",
+              "measurementValue": 77,
+              "type": "Air Humidity"
+            },
+            {
+              "measurementId": "4099",
+              "measurementValue": 3911,
+              "type": "Light Intensity"
+            },
+            {
+              "measurementId": "4190",
+              "measurementValue": 0,
+              "type": "UV Index"
+            },
+            {
+              "measurementId": "4105",
+              "measurementValue": 2.1,
+              "type": "Wind Speed"
+            },
+            {
+              "measurementId": "4104",
+              "measurementValue": 127,
+              "type": "Wind Direction Sensor"
+            },
+            {
+              "measurementId": "4113",
+              "measurementValue": 0,
+              "type": "Rain Gauge"
+            },
+            {
+              "measurementId": "4101",
+              "measurementValue": 99660,
+              "type": "Barometric Pressure"
+            },
+            {
+              "Battery(%)": 100
+            }
+          ],
+          "payload": "0100854D00000F4700001502007F0000000026EE0364",
+          "valid": true
+        },
+        "rx_metadata": [
+          {
+            "gateway_ids": {
+              "gateway_id": "eui-24e124fffef9a166",
+              "eui": "24E124FFFEF9A166"
+            },
+            "time": "2024-07-05T16:16:28.294Z",
+            "timestamp": 4045136893,
+            "rssi": -73,
+            "channel_rssi": -73,
+            "snr": 14.5,
+            "frequency_offset": "611",
+            "location": {
+              "latitude": 58.013897934237576,
+              "longitude": 11.584006360127455,
+              "altitude": 12,
+              "source": "SOURCE_REGISTRY"
+            },
+            "uplink_token": "...",
+            "gps_time": "2024-07-05T16:16:28.294Z",
+            "received_at": "2024-07-05T16:16:30.691530054Z"
+          }
+        ],
+        "settings": {
+          "data_rate": {
+            "lora": {
+              "bandwidth": 125000,
+              "spreading_factor": 7,
+              "coding_rate": "4/5"
+            }
+          },
+          "frequency": "868100000",
+          "timestamp": 4045136893,
+          "time": "2024-07-05T16:16:28.294Z"
+        },
+        "received_at": "2024-07-05T16:16:30.693554271Z",
+        "confirmed": true,
+        "consumed_airtime": "0.077056s",
+        "locations": {
+          "user": {
+            "latitude": 58.01392692747555,
+            "longitude": 11.5839771760278,
+            "altitude": 12,
+            "source": "SOURCE_REGISTRY"
+          }
+        },
+        "version_ids": {
+          "brand_id": "sensecap",
+          "model_id": "sensecaps2120-8-in-1",
+          "hardware_version": "1.0",
+          "firmware_version": "1.0",
+          "band_id": "EU_863_870"
+        },
+        "network_ids": {
+          "net_id": "000013",
+          "ns_id": "EC656E0000000181",
+          "tenant_id": "ttn",
+          "cluster_id": "eu1",
+          "cluster_address": "eu1.cloud.thethings.network"
+        }
+      }
+    },
+    "correlation_ids": [
+      "gs:uplink:01J21TXMF4DAS631TSWK0WZF8V"
+    ],
+    "origin": "ip-10-100-12-74.eu-west-1.compute.internal",
+    "context": {
+      "tenant-id": "CgN0dG4="
+    },
+    "visibility": {
+      "rights": [
+        "RIGHT_APPLICATION_TRAFFIC_READ"
+      ]
+    },
+    "unique_id": "01J21TXMNN6FDH9BYE2P8Y8GZN"
+  }
