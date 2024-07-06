@@ -1,0 +1,97 @@
+{
+    "name": "as.up.data.forward",
+    "time": "2024-07-06T09:19:21.385361320Z",
+    "identifiers": [
+      {
+        "device_ids": {
+          "device_id": "distance-03",
+          "application_ids": {
+            "application_id": "home-assistant-casa"
+          },
+          "dev_eui": "22D11357891CB769",
+          "join_eui": "70B3D57ED002E4B5",
+          "dev_addr": "260B7500"
+        }
+      }
+    ],
+    "data": {
+      "@type": "type.googleapis.com/ttn.lorawan.v3.ApplicationUp",
+      "end_device_ids": {
+        "device_id": "distance-03",
+        "application_ids": {
+          "application_id": "home-assistant-casa"
+        },
+        "dev_eui": "22D11357891CB769",
+        "join_eui": "70B3D57ED002E4B5",
+        "dev_addr": "260B7500"
+      },
+      "correlation_ids": [
+        "gs:uplink:01J23NEGJP1XSAFZQDQVD01HY8"
+      ],
+      "received_at": "2024-07-06T09:19:21.381960868Z",
+      "uplink_message": {
+        "session_key_id": "AZCHQat2VmAxX4ZK0gWZPw==",
+        "f_port": 1,
+        "f_cnt": 41,
+        "frm_payload": "AQAIAQAIAwIBNilnAPYqAgJYKwIPYCxlB9g=",
+        "decoded_payload_warnings": [
+          "Cayene"
+        ],
+        "rx_metadata": [
+          {
+            "gateway_ids": {
+              "gateway_id": "eui-a840411dbd104150",
+              "eui": "A840411DBD104150"
+            },
+            "time": "2024-07-06T09:19:21.154471Z",
+            "timestamp": 556187027,
+            "rssi": -54,
+            "channel_rssi": -54,
+            "snr": 9,
+            "location": {
+              "latitude": 48.76826575,
+              "longitude": 9.1596689,
+              "altitude": 310,
+              "source": "SOURCE_REGISTRY"
+            },
+            "uplink_token": "CiIKIAoUZXVpLWE4NDA0MTFkYmQxMDQxNTASCKhAQR29EEFQEJP7mokCGgsImZiktAYQ8prtUiC4jNL6l/2sAQ==",
+            "received_at": "2024-07-06T09:19:21.150027496Z"
+          }
+        ],
+        "settings": {
+          "data_rate": {
+            "lora": {
+              "bandwidth": 125000,
+              "spreading_factor": 7,
+              "coding_rate": "4/5"
+            }
+          },
+          "frequency": "868100000",
+          "timestamp": 556187027,
+          "time": "2024-07-06T09:19:21.154471Z"
+        },
+        "received_at": "2024-07-06T09:19:21.175051417Z",
+        "consumed_airtime": "0.082176s",
+        "network_ids": {
+          "net_id": "000013",
+          "ns_id": "EC656E0000000181",
+          "tenant_id": "ttn",
+          "cluster_id": "eu1",
+          "cluster_address": "eu1.cloud.thethings.network"
+        }
+      }
+    },
+    "correlation_ids": [
+      "gs:uplink:01J23NEGJP1XSAFZQDQVD01HY8"
+    ],
+    "origin": "ip-10-100-12-74.eu-west-1.compute.internal",
+    "context": {
+      "tenant-id": "CgN0dG4="
+    },
+    "visibility": {
+      "rights": [
+        "RIGHT_APPLICATION_TRAFFIC_READ"
+      ]
+    },
+    "unique_id": "01J23NEGS9EGGPDDNWV4EDSYRK"
+  }

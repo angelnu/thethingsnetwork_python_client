@@ -11,7 +11,7 @@ from ..values import (
 _LOGGER = logging.getLogger(__name__)
 
 
-def cayenne_parser(uplink_data: dict) -> dict[str, TTNBaseValue]:
+def default_parser(uplink_data: dict) -> dict[str, TTNBaseValue]:
     """Cayenne parser for for The Thinks Network client."""
 
     ttn_values: dict[str, TTNBaseValue] = {}
@@ -25,7 +25,7 @@ def cayenne_parser(uplink_data: dict) -> dict[str, TTNBaseValue]:
         _LOGGER.warning("No decoded_payload for device %s", device_id)
     else:
         for field_id, value_item in uplink_message["decoded_payload"].items():
-            __cayenne_parse_field(
+            __default_parse_field(
                 ttn_values,
                 field_id,
                 uplink_data,
@@ -34,7 +34,7 @@ def cayenne_parser(uplink_data: dict) -> dict[str, TTNBaseValue]:
     return ttn_values
 
 
-def __cayenne_parse_field(
+def __default_parse_field(
     ttn_values: dict[str, TTNBaseValue],
     field_id: str,
     application_up: dict,
@@ -49,7 +49,7 @@ def __cayenne_parse_field(
         else:
             # Other - such as acceleration -> split in multiple ttn_values
             for key, value_item in new_value.items():
-                __cayenne_parse_field(
+                __default_parse_field(
                     ttn_values,
                     f"{field_id}_{key}",
                     application_up,

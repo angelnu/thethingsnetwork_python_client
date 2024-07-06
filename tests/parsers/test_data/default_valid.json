@@ -35,10 +35,21 @@
         "f_cnt": 41,
         "frm_payload": "AQAIAQAIAwIBNilnAPYqAgJYKwIPYCxlB9g=",
         "decoded_payload": {
+          "accelerometer_77": {
+            "x": 1,
+            "y": 0.5,
+            "z": 9.8
+          },
           "analog_in_3": 3.1,
           "analog_in_42": 6,
           "analog_in_43": 39.36,
+          "boolean_1": true,
           "digital_in_1": 8,
+          "gps_34": {
+            "latitude": 48.76826575,
+            "longitude": 9.1596689,
+            "altitude": 310
+          },
           "illuminance_44": 2008,
           "raw": [
             1,
