@@ -1,13 +1,9 @@
 """Sensecap parser for for The Thinks Network client."""
 
 import logging
-from ..values import (
-    TTNBaseValue,
-    TTNDeviceTrackerValue,
-    TTNBinarySensorValue,
-    TTNSensorValue,
-)
+from ..values import TTNBaseValue, TTNSensorValue
 
+# pylint: disable=duplicate-code
 _LOGGER = logging.getLogger(__name__)
 
 
@@ -60,7 +56,6 @@ def __sensecap_parse_msg(
     value_item,
 ) -> None:
     """Parses a Sensecap field"""
-    new_ttn_value: TTNBaseValue | None
 
     if isinstance(value_item, dict):
         battery = value_item.get("Battery(%)")
@@ -71,7 +66,7 @@ def __sensecap_parse_msg(
         if battery:
             ttn_values["battery"] = TTNSensorValue(uplink_data, "battery", battery)
             return
-        elif measurement_id and measurement_value and measurement_type:
+        if measurement_id and measurement_value and measurement_type:
             field_id = f"{measurement_type.replace(' ','_')}_{measurement_id}"
             ttn_values[field_id] = TTNSensorValue(
                 uplink_data, field_id, measurement_value

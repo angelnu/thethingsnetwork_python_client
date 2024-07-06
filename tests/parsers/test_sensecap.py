@@ -1,14 +1,8 @@
 """Test sensecap parser."""
 
 import datetime
-import pytest
 
-from ttn_client import (
-    TTNSensorValue,
-    TTNBaseValue,
-    TTNBinarySensorValue,
-    TTNDeviceTrackerValue,
-)
+from ttn_client import TTNSensorValue, TTNBaseValue
 from ttn_client.parsers import ttn_parse
 
 
