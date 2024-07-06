@@ -1,15 +1,44 @@
 """Test TTN client."""
 
+import pytest
+
 import ttn_client
 
+pytest_plugins = "pytest_asyncio"
 
-def test_connection():
-    """Test a basic connection to TTN."""
-    client = ttn_client.TTNClient(
-        hostname="eu1.cloud.thethings.network",
-        application_id="home-assistant-casa",
-        access_key="NNSXS.dummy",
-    )
-    assert client is not None
 
-    # TBD: add client.fetch_data() - need test env and test credentials as I cannot use my home one for a public pipeline
+@pytest.mark.asyncio
+async def test_mocked_connection(dummy_client, mock_aiohttp_client_session_get):
+    """Test client with mocked data."""
+    with mock_aiohttp_client_session_get(
+        {"result": {"end_device_ids": {"device_id": "dummy"}, "uplink_message": {}}},
+        200,
+    ):
+        await dummy_client.fetch_data()
+
+    with mock_aiohttp_client_session_get({}, 200):
+        await dummy_client.fetch_data()
+
+
+@pytest.mark.asyncio
+async def test_connection_auth_error(dummy_client):
+    """Test that dummy credentials fail."""
+
+    with pytest.raises(ttn_client.TTNAuthError):
+        await dummy_client.fetch_data()
+
+
+@pytest.mark.asyncio
+async def test_invalid_get_status(dummy_client, mock_aiohttp_client_session_get):
+    """Test client with mocked data."""
+    with mock_aiohttp_client_session_get({}, 500):
+        with pytest.raises(RuntimeError):
+            await dummy_client.fetch_data()
+
+
+@pytest.mark.asyncio
+async def test_missing_result(dummy_client, mock_aiohttp_client_session_get):
+    """Test client with mocked data."""
+
+    with mock_aiohttp_client_session_get({"missing_result": {}}, 200):
+        await dummy_client.fetch_data()
