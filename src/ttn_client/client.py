@@ -9,8 +9,9 @@ import aiohttp
 from aiohttp.hdrs import ACCEPT, AUTHORIZATION
 
 from .const import DEFAULT_TIMEOUT, TTN_DATA_STORAGE_URL
-from .values import TTNBaseValue, TTNBinarySensorValue, TTNDeviceTrackerValue, TTNSensorValue
+from .values import TTNBaseValue
 from .exceptions import TTNAuthError
+from .parsers import ttn_parse
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -99,66 +100,7 @@ class TTNClient:  # pylint: disable=too-few-public-methods
 
                 # Get device_id and uplink_message from measurement
                 device_id = application_up["end_device_ids"]["device_id"]
-                uplink_message = application_up["uplink_message"]
 
-                # Skip not decoded measurements
-                if "decoded_payload" not in uplink_message:
-                    continue
-
-                ttn_values.setdefault(device_id, {})
-                for field_id, value_item in uplink_message["decoded_payload"].items():
-                    TTNClient.__add_value(
-                        ttn_values,
-                        device_id,
-                        field_id,
-                        application_up,
-                        value_item,
-                    )
+                ttn_values[device_id] = ttn_parse(application_up)
 
         return ttn_values
-
-    @staticmethod
-    def __add_value(
-        ttn_values: DATA_TYPE,
-        device_id: str,
-        field_id: str,
-        application_up: dict,
-        new_value,
-    ) -> None:
-        new_ttn_value: TTNBaseValue | None
-        if isinstance(new_value, dict):
-            if "gps" in field_id:
-                # GPS
-                new_ttn_value = TTNDeviceTrackerValue(
-                    application_up, field_id, new_value
-                )
-            else:
-                # Other - such as acceleration -> split in multiple ttn_values
-                for key, value_item in new_value.items():
-                    TTNClient.__add_value(
-                        ttn_values,
-                        device_id,
-                        f"{field_id}_{key}",
-                        application_up,
-                        value_item,
-                    )
-                return
-        elif isinstance(new_value, bool):
-            # BinarySensor
-            new_ttn_value = TTNBinarySensorValue(application_up, field_id, new_value)
-        elif isinstance(new_value, list):
-            # TTN_SensorValue with list as string
-            new_ttn_value = TTNSensorValue(application_up, field_id, str(new_value))
-        elif isinstance(new_value, (str, int, float)):
-            new_ttn_value = TTNSensorValue(application_up, field_id, new_value)
-        elif new_value is None:
-            # Skip null values
-            _LOGGER.warning(
-                "Ignoring entry %s with value=None - check your application decoder",
-                field_id,
-            )
-            return
-        else:
-            raise TypeError(f"Unexpected type {type(new_value)} for value: {new_value}")
-
-        ttn_values[device_id][field_id] = new_ttn_value
