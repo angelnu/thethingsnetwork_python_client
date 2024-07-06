@@ -21,3 +21,8 @@ def default_valid(request):
 @pytest.fixture
 def default_no_decoded_payload(request):
     return json_config(request, "default_no_decoded_payload.json")
+
+
+@pytest.fixture
+def sensecap_valid(request):
+    return json_config(request, "sensecap_valid.json")
