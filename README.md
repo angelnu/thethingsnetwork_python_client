@@ -4,9 +4,37 @@
 
 A python client to fetch/receive and parse uplink messages from The Things Network
 
-This is a WIP package as it was before part of a custom [Home Assistant integration](https://github.com/angelnu/home_assistant_thethingsnetwork)
+It is used primarily for the [home-assistant integration](https://www.home-assistant.io/integrations/thethingsnetwork/) but it should also work independently - check the [testcases](tests).
 
-WIP - coverage dummy
+## Assumptions
+
+For this library to work, the [TheThingNetwork storage plugin](https://www.thethingsindustries.com/docs/integrations/storage/) is required. You might also check the [home assistant prerequisites](https://www.home-assistant.io/integrations/thethingsnetwork/#prerequisites) as they also apply when this library is used standalone.
+
+A [payload decoded](https://www.thethingsindustries.com/docs/integrations/payload-formatters/) needs to be present so that you have a `decoded_payload` in the uplink message. By default, this library expects the `decoded_payload` to have a key-value format such as:
+
+```json
+"decoded_payload": {
+          "accelerometer_77": {
+            "x": 1,  # Sensor will be called accelerometer_77_x
+            "y": 0.5,  # Sensor will be called accelerometer_77_y
+            "z": 9.8   # Sensor will be called accelerometer_77_z
+          },
+          "voltage": 3.1,  # Sensor will be called voltage and be of type float
+          "boolean_1": true,  # Binary Sensor will be called boolean_1
+          "digital_in_1": 8,  # Sensor will be called voltage and be of type int
+          "gps_34": {  # Device Tracker will be called gps_34
+            "latitude": 48.76826575,
+            "longitude": 9.1596689,
+            "altitude": 310
+          }
+        }
+```
+
+If you have a device using a different format, please open an [Issue](issues) and post a copy of **full** message for your device.
+
+## Supported devices
+
+- [default](tests/parsers/test_data/default_valid.json)
 
 ## Thanks
 
