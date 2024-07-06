@@ -1,7 +1,12 @@
 """Cayenne parser for for The Thinks Network client."""
 
 import logging
-from ..values import TTNBaseValue, TTNDeviceTrackerValue, TTNBinarySensorValue, TTNSensorValue
+from ..values import (
+    TTNBaseValue,
+    TTNDeviceTrackerValue,
+    TTNBinarySensorValue,
+    TTNSensorValue,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -40,9 +45,7 @@ def __cayenne_parse_field(
     if isinstance(new_value, dict):
         if "gps" in field_id:
             # GPS
-            new_ttn_value = TTNDeviceTrackerValue(
-                application_up, field_id, new_value
-            )
+            new_ttn_value = TTNDeviceTrackerValue(application_up, field_id, new_value)
         else:
             # Other - such as acceleration -> split in multiple ttn_values
             for key, value_item in new_value.items():
