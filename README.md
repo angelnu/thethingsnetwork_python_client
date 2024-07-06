@@ -1,6 +1,7 @@
 # The Things Network_python_client
 
 [![codecov](https://codecov.io/gh/angelnu/thethingsnetwork_python_client/graph/badge.svg?token=yUTImnfbUL)](https://codecov.io/gh/angelnu/thethingsnetwork_python_client)
+[![PyPI version](https://badge.fury.io/py/ttn-client.svg)](https://badge.fury.io/py/ttn-client)
 
 A python client to fetch/receive and parse uplink messages from The Things Network
 
@@ -12,7 +13,7 @@ For this library to work, the [TheThingNetwork storage plugin](https://www.theth
 
 A [payload decoded](https://www.thethingsindustries.com/docs/integrations/payload-formatters/) needs to be present so that you have a `decoded_payload` in the uplink message. By default, this library expects the `decoded_payload` to have a key-value format such as:
 
-```json
+```json5
 "decoded_payload": {
           "accelerometer_77": {
             "x": 1,  # Sensor will be called accelerometer_77_x
