@@ -22,9 +22,9 @@ def sensecap_parser(uplink_data: dict) -> dict[str, TTNBaseValue]:
     else:
         decoded_payload = uplink_message["decoded_payload"]
         # Check im msg is valid
-        if not decoded_payload["valid"]:
+        if not decoded_payload.get("valid", False):
             _LOGGER.warning(
-                "Ignoring message marked as invalid for device %s: %s",
+                "Ignoring message without valid=true for device %s: %s",
                 device_id,
                 decoded_payload,
             )
