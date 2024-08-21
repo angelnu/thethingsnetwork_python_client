@@ -66,11 +66,12 @@ class TTNClient:  # pylint: disable=too-few-public-methods
             AUTHORIZATION: f"Bearer {self.__access_key}",
         }
 
-        async with aiohttp.ClientSession(
-            timeout=DEFAULT_TIMEOUT
-        ) as session, session.get(
-            url, allow_redirects=False, timeout=DEFAULT_TIMEOUT, headers=headers
-        ) as response:
+        async with (
+            aiohttp.ClientSession(timeout=DEFAULT_TIMEOUT) as session,
+            session.get(
+                url, allow_redirects=False, timeout=DEFAULT_TIMEOUT, headers=headers
+            ) as response,
+        ):
             if response.status in range(400, 500):
                 # LOGGER.error("Not authorized for Application ID: %s", self.__application_id)
                 raise TTNAuthError

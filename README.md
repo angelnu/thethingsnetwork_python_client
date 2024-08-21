@@ -38,6 +38,10 @@ If you have a device using a different format, please open an [Issue](issues) an
 - [Default](tests/parsers/test_data/default_valid.json)
 - [Sensecap](tests/parsers/test_data/sensecap_valid.json)
 
+## How to test
+
+This library uses [tox](https://tox.wiki) so just install it and run `tox`
+
 ## Thanks
 
 This package structure and pipeline is derived from the [zwave-js-server-python](https://github.com/home-assistant-libs/zwave-js-server-python) package.
