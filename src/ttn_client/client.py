@@ -66,9 +66,8 @@ class TTNClient:  # pylint: disable=too-few-public-methods
             AUTHORIZATION: f"Bearer {self.__access_key}",
         }
 
-        session_timeout = aiohttp.ClientTimeout(DEFAULT_TIMEOUT)
         async with aiohttp.ClientSession(
-            timeout=session_timeout
+            timeout=DEFAULT_TIMEOUT
         ) as session, session.get(
             url, allow_redirects=False, timeout=DEFAULT_TIMEOUT, headers=headers
         ) as response:
