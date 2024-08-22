@@ -6,6 +6,11 @@ from .base import TTNBaseValue
 class TTNDeviceTrackerValue(TTNBaseValue):
     """Sensor of type gps."""
 
+    def __init__(self, uplink: dict, field_id: str, value) -> None:
+        super().__init__(uplink, field_id, value)
+        assert "latitude" in self.value
+        assert "longitude" in self.value
+
     @property
     def value(self) -> dict:
         """the value itself."""
@@ -22,6 +27,6 @@ class TTNDeviceTrackerValue(TTNBaseValue):
         return self.value["longitude"]
 
     @property
-    def altitude(self) -> float:
+    def altitude(self) -> float | None:
         """Return altitude value of the device."""
-        return self.value["altitude"]
+        return self.value.get("altitude", None)
