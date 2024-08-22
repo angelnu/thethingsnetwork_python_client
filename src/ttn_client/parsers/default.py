@@ -43,7 +43,7 @@ def __default_parse_field(
     """Parses a cayenne field"""
     new_ttn_value: TTNBaseValue | None
     if isinstance(new_value, dict):
-        if "gps" in field_id:
+        if "latitude" in new_value and "longitude" in new_value:
             # GPS
             new_ttn_value = TTNDeviceTrackerValue(application_up, field_id, new_value)
         else:
