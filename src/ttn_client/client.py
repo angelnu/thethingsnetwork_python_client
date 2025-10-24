@@ -40,16 +40,18 @@ class TTNClient:  # pylint: disable=too-few-public-methods
     async def fetch_data(self) -> DATA_TYPE:
         """Fetch data stored by the TTN Storage since the last time we fetched/received data."""
 
+        now = datetime.now()
+
         if not self.__last_measurement_datetime:
             fetch_last = f"{self.__first_fetch_h}h"
             _LOGGER.info("First fetch of tth data: %s", fetch_last)
         else:
             # Fetch new measurements since last time (with an extra minute margin)
-            delta = datetime.now() - self.__last_measurement_datetime
-            delta_s = delta.total_seconds()
+            delta = now - self.__last_measurement_datetime
+            delta_s = delta.total_seconds() + 60
             fetch_last = f"{delta_s}s"
             _LOGGER.info("Fetch of ttn data: %s", fetch_last)
-        self.__last_measurement_datetime = datetime.now()
+        self.__last_measurement_datetime = now
 
         # Discover entities
         # See API docs
