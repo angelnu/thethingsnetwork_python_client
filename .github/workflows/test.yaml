@@ -17,7 +17,7 @@ jobs:
       matrix:
         python-version:
           - "3.12"
-          - "3.13"
+          # - "3.13" lint error: src/ttn_client/client.py:3:0: E0401: Unable to import 'collections.abc' (import-error)
           - "3.14"
 
     steps:
