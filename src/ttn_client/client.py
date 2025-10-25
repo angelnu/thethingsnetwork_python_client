@@ -108,6 +108,9 @@ class TTNClient:  # pylint: disable=too-few-public-methods
                 if ttn_output == {}:
                     continue
 
-                ttn_values[device_id] = ttn_output
+                if device_id in ttn_values:
+                    ttn_values[device_id] |= ttn_output
+                else:
+                    ttn_values[device_id] = ttn_output
 
         return ttn_values
