@@ -108,6 +108,8 @@ class TTNClient:  # pylint: disable=too-few-public-methods
                 if ttn_output == {}:
                     continue
 
+                _LOGGER.debug("TTN parsed values: %s", ttn_output)
+
                 if device_id in ttn_values:
                     ttn_values[device_id] |= ttn_output
                 else:
