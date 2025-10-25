@@ -105,6 +105,8 @@ class TTNClient:  # pylint: disable=too-few-public-methods
 
                 ttn_values = ttn_parse(application_up)
 
+                _LOGGER.debug("TTN parsed values: %s", ttn_values)
+
                 if ttn_values == {}:
                     continue
 
