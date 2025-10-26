@@ -103,6 +103,16 @@ class TTNClient:  # pylint: disable=too-few-public-methods
                 # Get device_id and uplink_message from measurement
                 device_id = application_up["end_device_ids"]["device_id"]
 
-                ttn_values[device_id] = ttn_parse(application_up)
+                ttn_output = ttn_parse(application_up)
+
+                if ttn_output == {}:
+                    continue
+
+                _LOGGER.debug("TTN parsed values: %s", ttn_output)
+
+                if device_id in ttn_values:
+                    ttn_values[device_id] |= ttn_output
+                else:
+                    ttn_values[device_id] = ttn_output
 
         return ttn_values
