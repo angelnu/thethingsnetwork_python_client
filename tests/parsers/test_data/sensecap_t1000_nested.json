@@ -1,0 +1,135 @@
+{
+  "name": "as.up.data.forward",
+  "time": "2025-12-15T23:38:51.261316239Z",
+  "identifiers": [
+    {
+      "device_ids": {
+        "device_id": "test-t1000-device",
+        "application_ids": {
+          "application_id": "test-app"
+        },
+        "dev_eui": "0000000000000001",
+        "dev_addr": "00000001"
+      }
+    }
+  ],
+  "data": {
+    "@type": "type.googleapis.com/ttn.lorawan.v3.ApplicationUp",
+    "end_device_ids": {
+      "device_id": "test-t1000-device",
+      "application_ids": {
+        "application_id": "test-app"
+      },
+      "dev_eui": "0000000000000001",
+      "dev_addr": "00000001"
+    },
+    "correlation_ids": [
+      "gs:uplink:01TEST123456"
+    ],
+    "received_at": "2025-12-15T23:38:51.261316239Z",
+    "uplink_message": {
+      "f_port": 5,
+      "f_cnt": 34,
+      "frm_payload": "dGVzdHBheWxvYWRkYXRhZm9ydDEwMDB0ZXN0aW5ncHVycG9zZXM=",
+      "decoded_payload": {
+        "err": 0,
+        "messages": [
+          [
+            {
+              "measurementId": "4200",
+              "measurementValue": [],
+              "motionId": 0,
+              "timestamp": 1765841925000,
+              "type": "Event Status"
+            },
+            {
+              "measurementId": "5001",
+              "measurementValue": [
+                {
+                  "mac": "AA:BB:CC:DD:EE:01",
+                  "rssi": "-68"
+                },
+                {
+                  "mac": "AA:BB:CC:DD:EE:02",
+                  "rssi": "-91"
+                },
+                {
+                  "mac": "AA:BB:CC:DD:EE:03",
+                  "rssi": "-82"
+                },
+                {
+                  "mac": "AA:BB:CC:DD:EE:04",
+                  "rssi": "-83"
+                }
+              ],
+              "motionId": 0,
+              "timestamp": 1765841925000,
+              "type": "Wi-Fi Scan"
+            },
+            {
+              "measurementId": "3000",
+              "measurementValue": 88,
+              "motionId": 0,
+              "timestamp": 1765841925000,
+              "type": "Battery"
+            }
+          ]
+        ],
+        "payload": "74657374706179546f61646461746166f0727431303030746573",
+        "valid": true
+      },
+      "rx_metadata": [
+        {
+          "gateway_ids": {
+            "gateway_id": "test-gateway",
+            "eui": "0000000000000002"
+          },
+          "time": "2025-12-15T23:38:50.912254095Z",
+          "timestamp": 1258723744,
+          "rssi": -51,
+          "channel_rssi": -51,
+          "snr": 15.25,
+          "received_at": "2025-12-15T23:38:51.036053659Z"
+        }
+      ],
+      "settings": {
+        "data_rate": {
+          "lora": {
+            "bandwidth": 125000,
+            "spreading_factor": 7,
+            "coding_rate": "4/5"
+          }
+        },
+        "frequency": "867900000",
+        "timestamp": 1258723744,
+        "time": "2025-12-15T23:38:50.912254095Z"
+      },
+      "received_at": "2025-12-15T23:38:51.055388653Z",
+      "consumed_airtime": "0.102656s",
+      "version_ids": {
+        "brand_id": "sensecap",
+        "model_id": "sensecapt1000-tracker-ab",
+        "hardware_version": "1.0",
+        "firmware_version": "1.0",
+        "band_id": "EU_863_870"
+      },
+      "network_ids": {
+        "net_id": "000013",
+        "ns_id": "EC656E0000000181",
+        "tenant_id": "ttn",
+        "cluster_id": "eu1",
+        "cluster_address": "eu1.cloud.thethings.network"
+      }
+    }
+  },
+  "correlation_ids": [
+    "gs:uplink:01TEST123456"
+  ],
+  "origin": "test.eu-west-1.compute.internal",
+  "visibility": {
+    "rights": [
+      "RIGHT_APPLICATION_TRAFFIC_READ"
+    ]
+  },
+  "unique_id": "01TEST123456UNIQUE"
+}

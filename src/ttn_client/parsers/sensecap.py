@@ -40,12 +40,22 @@ def sensecap_parser(uplink_data: dict) -> dict[str, TTNBaseValue]:
                 # Parse messages
                 messages = decoded_payload["messages"]
                 for value_item in messages:
-                    __sensecap_parse_msg(
-                        ttn_values,
-                        device_id,
-                        uplink_data,
-                        value_item,
-                    )
+                    # Handle nested list (each message can be a list of measurements)
+                    if isinstance(value_item, list):
+                        for measurement in value_item:
+                            __sensecap_parse_msg(
+                                ttn_values,
+                                device_id,
+                                uplink_data,
+                                measurement,
+                            )
+                    else:
+                        __sensecap_parse_msg(
+                            ttn_values,
+                            device_id,
+                            uplink_data,
+                            value_item,
+                        )
     return ttn_values
 
 
