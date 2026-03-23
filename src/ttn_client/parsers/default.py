@@ -3,12 +3,15 @@
 import logging
 from ..values import (
     TTNBaseValue,
-    TTNDeviceTrackerValue,
     TTNBinarySensorValue,
+    TTNDeviceTrackerValue,
+    TTNSensorAttribute,
     TTNSensorValue,
 )
 
 _LOGGER = logging.getLogger(__name__)
+
+_SENSOR_ATTR_KEY = "_sensor_attr"
 
 
 def default_parser(uplink_data: dict) -> dict[str, TTNBaseValue]:
@@ -46,6 +49,17 @@ def __default_parse_field(
         if "latitude" in new_value and "longitude" in new_value:
             # GPS
             new_ttn_value = TTNDeviceTrackerValue(application_up, field_id, new_value)
+        elif field_id == _SENSOR_ATTR_KEY:
+            # _sensor_attr: { BatV: { unit: "V", device_class: "voltage" } }
+            for sensor_field, attr_dict in new_value.items():
+                if not isinstance(attr_dict, dict):
+                    continue
+                for attr_key, attr_value in attr_dict.items():
+                    flat_key = f"{_SENSOR_ATTR_KEY}_{sensor_field}_{attr_key}"
+                    ttn_values[flat_key] = TTNSensorAttribute(
+                        application_up, flat_key, str(attr_value)
+                    )
+            return
         else:
             # Other - such as acceleration -> split in multiple ttn_values
             for key, value_item in new_value.items():

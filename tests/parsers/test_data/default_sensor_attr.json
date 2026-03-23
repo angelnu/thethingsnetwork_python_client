@@ -1,0 +1,57 @@
+{
+    "name": "as.up.data.forward",
+    "time": "2024-07-06T09:19:21.385361320Z",
+    "identifiers": [
+      {
+        "device_ids": {
+          "device_id": "sensor-01",
+          "application_ids": {
+            "application_id": "home-assistant-casa"
+          }
+        }
+      }
+    ],
+    "data": {
+      "@type": "type.googleapis.com/ttn.lorawan.v3.ApplicationUp",
+      "end_device_ids": {
+        "device_id": "sensor-01",
+        "application_ids": {
+          "application_id": "home-assistant-casa"
+        }
+      },
+      "received_at": "2024-07-06T09:19:21.381960868Z",
+      "uplink_message": {
+        "f_port": 1,
+        "decoded_payload": {
+          "BatV": 3.016,
+          "TempC_SHT": 24.6,
+          "boolean_1": true,
+          "_sensor_attr": {
+            "BatV": {
+              "unit": "V",
+              "device_class": "voltage",
+              "state_class": "measurement",
+              "entity_category": "diagnostic"
+            },
+            "TempC_SHT": {
+              "unit": "°C",
+              "device_class": "temperature"
+            },
+            "invalid_entry": "not_a_dict"
+          }
+        },
+        "rx_metadata": [],
+        "settings": {
+          "data_rate": {
+            "lora": {
+              "bandwidth": 125000,
+              "spreading_factor": 7,
+              "coding_rate": "4/5"
+            }
+          },
+          "frequency": "868100000"
+        },
+        "received_at": "2024-07-06T09:19:21.175051417Z"
+      }
+    }
+  }

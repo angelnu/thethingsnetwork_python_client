@@ -9,7 +9,7 @@ import pytest
 def json_config(request, test_file):
     file = pathlib.Path(request.node.fspath.strpath)
     config = file.parent.joinpath("test_data", test_file)
-    with config.open() as fp:
+    with config.open(encoding="utf-8") as fp:
         return json.load(fp)
 
 
@@ -21,6 +21,11 @@ def default_valid(request):
 @pytest.fixture
 def default_no_decoded_payload(request):
     return json_config(request, "default_no_decoded_payload.json")
+
+
+@pytest.fixture
+def default_sensor_attr(request):
+    return json_config(request, "default_sensor_attr.json")
 
 
 @pytest.fixture
