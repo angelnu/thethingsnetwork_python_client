@@ -4,10 +4,11 @@ import datetime
 import pytest
 
 from ttn_client import (
-    TTNSensorValue,
     TTNBaseValue,
     TTNBinarySensorValue,
     TTNDeviceTrackerValue,
+    TTNSensorAttribute,
+    TTNSensorValue,
 )
 from ttn_client.parsers import ttn_parse
 
@@ -107,6 +108,67 @@ def test_default_none_value(default_valid):
     uplink_with_none_value["uplink_message"]["decoded_payload"]["digital_in_1"] = None
     ttn_values_with_none = ttn_parse(uplink_with_none_value)
     assert len(ttn_values_with_none) == len(ttn_values) - 1
+
+
+def test_sensor_attr_parsed_as_attribute(default_sensor_attr):
+    """Test _sensor_attr fields are parsed as TTNSensorAttribute."""
+    ttn_values = ttn_parse(default_sensor_attr["data"])
+
+    # BatV attributes
+    assert isinstance(ttn_values["_sensor_attr_BatV_unit"], TTNSensorAttribute)
+    assert ttn_values["_sensor_attr_BatV_unit"].value == "V"
+    assert ttn_values["_sensor_attr_BatV_device_class"].value == "voltage"
+    assert ttn_values["_sensor_attr_BatV_state_class"].value == "measurement"
+    assert ttn_values["_sensor_attr_BatV_entity_category"].value == "diagnostic"
+
+    # TempC_SHT attributes
+    assert isinstance(ttn_values["_sensor_attr_TempC_SHT_unit"], TTNSensorAttribute)
+    assert ttn_values["_sensor_attr_TempC_SHT_unit"].value == "°C"
+    assert ttn_values["_sensor_attr_TempC_SHT_device_class"].value == "temperature"
+
+    # repr
+    assert repr(ttn_values["_sensor_attr_BatV_unit"]) == "TTN_Attr(V)"
+
+
+def test_sensor_attr_flat_keys(default_sensor_attr):
+    """Test all expected flat keys are present."""
+    ttn_values = ttn_parse(default_sensor_attr["data"])
+
+    expected_attr_keys = {
+        "_sensor_attr_BatV_unit",
+        "_sensor_attr_BatV_device_class",
+        "_sensor_attr_BatV_state_class",
+        "_sensor_attr_BatV_entity_category",
+        "_sensor_attr_TempC_SHT_unit",
+        "_sensor_attr_TempC_SHT_device_class",
+    }
+    actual_attr_keys = {
+        k for k, v in ttn_values.items() if isinstance(v, TTNSensorAttribute)
+    }
+    assert actual_attr_keys == expected_attr_keys
+
+
+def test_sensor_attr_non_dict_skipped(default_sensor_attr):
+    """Test non-dict entries in _sensor_attr are skipped."""
+    ttn_values = ttn_parse(default_sensor_attr["data"])
+
+    # "invalid_entry": "not_a_dict" should be skipped
+    invalid_keys = [k for k in ttn_values if "invalid_entry" in k]
+    assert invalid_keys == []
+
+
+def test_sensor_attr_normal_values_unchanged(default_sensor_attr):
+    """Test normal sensor values are not affected by _sensor_attr."""
+    ttn_values = ttn_parse(default_sensor_attr["data"])
+
+    # Normal sensor values remain TTNSensorValue
+    assert isinstance(ttn_values["BatV"], TTNSensorValue)
+    assert ttn_values["BatV"].value == 3.016
+    assert isinstance(ttn_values["TempC_SHT"], TTNSensorValue)
+    assert ttn_values["TempC_SHT"].value == 24.6
+
+    # Boolean still works
+    assert isinstance(ttn_values["boolean_1"], TTNBinarySensorValue)
 
 
 def test_default_unexpected_value(default_valid):
