@@ -31,3 +31,8 @@ def default_sensor_attr(request):
 @pytest.fixture
 def sensecap_valid(request):
     return json_config(request, "sensecap_valid.json")
+
+
+@pytest.fixture
+def sensecap_t1000_nested(request):
+    return json_config(request, "sensecap_t1000_nested.json")
