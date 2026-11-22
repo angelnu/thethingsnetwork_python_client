@@ -12,6 +12,10 @@ jobs:
       id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
       - uses: actions/checkout@v4.1.2
+        with:
+          # Full history + tags so hatch-vcs derives the version from the
+          # release tag instead of falling back to a guessed version.
+          fetch-depth: 0
       - name: Set up Python 3.11
         uses: actions/setup-python@v5.0.0
         with:
@@ -24,4 +28,6 @@ jobs:
           pip install build
           python -m build
       - name: Publish release to PyPI
-        uses: pypa/gh-action-pypi-publish@v1.13.0
+        # v1.14.x bundles twine 7, which accepts Metadata-Version 2.5
+        # (v1.13.0 bundled twine 6.1 / packaging 25.0, which did not).
+        uses: pypa/gh-action-pypi-publish@v1.14.3
